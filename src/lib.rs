@@ -1219,7 +1219,8 @@ impl Build {
                     cmd.push_cc_arg("-ffunction-sections".into());
                     cmd.push_cc_arg("-fdata-sections".into());
                 }
-                if self.pic.unwrap_or(!target.contains("windows-gnu")) {
+                if self.pic.unwrap_or(!target.contains("windows-gnu") &&
+                                      !target.contains("uwp-gnu")) {
                     cmd.push_cc_arg("-fPIC".into());
                     // PLT only applies if code is compiled with PIC support,
                     // and only for ELF targets.
@@ -1781,6 +1782,8 @@ impl Build {
                         "armv7-unknown-netbsd-eabihf" => Some("armv7--netbsdelf-eabihf"),
                         "i586-unknown-linux-musl" => Some("musl"),
                         "i686-pc-windows-gnu" => Some("i686-w64-mingw32"),
+                        "i686-pc-uwp-gnu" => Some("i686-w64-mingw32"),
+                        "x86_64-pc-uwp-gnu" => Some("x86_64-w64-mingw32"),
                         "i686-unknown-linux-musl" => Some("musl"),
                         "i686-unknown-netbsd" => Some("i486--netbsdelf"),
                         "mips-unknown-linux-gnu" => Some("mips-linux-gnu"),
